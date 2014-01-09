@@ -77,6 +77,7 @@ class TestDialog(QMainWindow,QDialog):
             self.mainUi.casetext.setText(u'%s'%db.uidata(self.startid,1)[0][0])
 
     def predata(self):
+        #当前用例
         db = self.db
         casename = self.mainUi.casetext.text()
         db.insertdata(str(casename))
@@ -86,6 +87,7 @@ class TestDialog(QMainWindow,QDialog):
 #        self.startid += 1
 
     def prenextdata(self):
+        #下一个用例
         db = self.db
         casename = self.mainUi.nextcasetext.text()
         db.insertdata(str(casename))
@@ -102,6 +104,7 @@ class TestDialog(QMainWindow,QDialog):
             self.startid += 1
     
     def prepredata(self):
+        #上一个用例
         db = self.db
         casename = self.mainUi.nextcasetext.text()
         db.insertdata(str(casename))
@@ -119,7 +122,8 @@ class TestDialog(QMainWindow,QDialog):
 
 
     def initdata(self):
-        
+        #bug1 执行数据后，再初始化数据；部分数据界面不显示
+        self.startid = 0
         db = self.db
         db.initdata()
         self.casecount = db.casecount()
