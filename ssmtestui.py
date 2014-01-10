@@ -32,10 +32,16 @@ class Ui_MainWindow(object):
         self.tableWidget = QtGui.QTableWidget(self.centralwidget)
         self.tableWidget.setGeometry(QtCore.QRect(10, 10, 471, 511))
         self.tableWidget.setObjectName(_fromUtf8("tableWidget"))
-        self.tableWidget.setColumnCount(1)
+        self.tableWidget.setColumnCount(2)
         self.tableWidget.setRowCount(200)
+        self.tableWidget.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
+        self.tableWidget.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
+        self.tableWidget.setAlternatingRowColors(True) 
+
         item = QtGui.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(0, item)
+        item = QtGui.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(1, item)
         self.initdatabu = QtGui.QPushButton(self.centralwidget)
         self.initdatabu.setGeometry(QtCore.QRect(640, 30, 81, 31))
         self.initdatabu.setObjectName(_fromUtf8("initdatabu"))
@@ -74,9 +80,9 @@ class Ui_MainWindow(object):
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
 
-        self.tableWidget.setColumnWidth(0,380)
+        self.tableWidget.setColumnWidth(0,350)
         MainWindow.setStatusBar(self.statusbar)
-
+        
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -84,6 +90,9 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "用例名称", None))
+        item = self.tableWidget.horizontalHeaderItem(1)
+        item.setText(_translate("MainWindow", "用例编号", None))
+
         self.initdatabu.setText(_translate("MainWindow", "初始化数据", None))
         self.predatabu.setText(_translate("MainWindow", "预置数据", None))
         self.prenextdatabu.setText(_translate("MainWindow", "预置下一用例", None))

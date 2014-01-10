@@ -108,7 +108,7 @@ class datarule(object):
 
     def uidata(self,startid,datanum):
         cu = iddb1.cursor()
-        cu.execute('select casename from ssmtestdata where casename !=? limit ?,?',('',startid,datanum))
+        cu.execute('select casename,groupid from ssmtestdata where casename !=? limit ?,?',('',startid,datanum))
         uidatalist = cu.fetchall()
         cu.close()
         return uidatalist

@@ -7,6 +7,7 @@ import ssmtestui
 import sys  
 import datarule 
 import os
+import pywinauto
 
 try:
     _fromUtf8 = QString.fromUtf8
@@ -81,6 +82,7 @@ class TestDialog(QMainWindow,QDialog):
         db = self.db
         casename = self.mainUi.casetext.text()
         db.insertdata(str(casename))
+        self.Clickdemotest()
 #        self.mainUi.precasetext.setText(u'%s'%db.uidata(self.startid,1)[0][0])
 #        self.mainUi.casetext.setText(u'%s'%db.uidata(self.startid+1,1)[0][0])
 #        self.mainUi.nextcasetext.setText(u'%s'%db.uidata(self.startid+2,1)[0][0])
@@ -91,6 +93,7 @@ class TestDialog(QMainWindow,QDialog):
         db = self.db
         casename = self.mainUi.nextcasetext.text()
         db.insertdata(str(casename))
+#        self.Clickdemotest()
         if self.startid + 2 >= self.casecount:
             self.mainUi.nextcasetext.setText('no next case')
             self.mainUi.precasetext.setText(u'%s'%db.uidata(self.startid,1)[0][0])
@@ -102,12 +105,14 @@ class TestDialog(QMainWindow,QDialog):
             self.mainUi.casetext.setText(u'%s'%db.uidata(self.startid+1,1)[0][0])
             self.mainUi.nextcasetext.setText(u'%s'%db.uidata(self.startid+2,1)[0][0])
             self.startid += 1
+            self.Clickdemotest()
     
     def prepredata(self):
         #上一个用例
         db = self.db
         casename = self.mainUi.nextcasetext.text()
         db.insertdata(str(casename))
+#        self.Clickdemotest()
         if self.startid <=1:
             self.mainUi.precasetext.setText('no last case') 
             self.mainUi.casetext.setText(u'%s'%db.uidata(self.startid-1,1)[0][0])
@@ -119,6 +124,7 @@ class TestDialog(QMainWindow,QDialog):
             self.mainUi.casetext.setText(u'%s'%db.uidata(self.startid-1,1)[0][0])
             self.mainUi.nextcasetext.setText(u'%s'%db.uidata(self.startid,1)[0][0])
             self.startid -= 1
+            self.Clickdemotest()
 
 
     def initdata(self):
@@ -129,6 +135,8 @@ class TestDialog(QMainWindow,QDialog):
         self.casecount = db.casecount()
         self.mainUi.tableWidget.clearContents()
         self.loadtable()
+        self.mainUi.precasetext.setText('no next case')
+        
         
     def selectdata(self):
 
@@ -141,11 +149,18 @@ class TestDialog(QMainWindow,QDialog):
             db = self.db
 #            print currentrow[0].text()
             insertdata1 =  db.insertdata(str(currentrow[0].text()))
+            self.Clickdemotest()
             self.mainUi.selectcasetext.setText('success update case data')
             return True
     
     
-
+    def Clickdemotest(self):
+        #调用demo工具的上传
+        try:
+            app = pywinauto.application.Application()
+            app[ur"EMR_社保监控信息上传接口测试"].TypeKeys('{ENTER}')
+        except  Exception,msg:
+            print msg
         
 
     
